@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<body style="width: 100%; height: 100%;">
+
+  <button onclick="chrome.runtime.reload()">Reload</button><br>
+  <p>Remaining time: <span id="timer"></span></p>
+  <canvas id="canvas1" width="800" height="800"></canvas>
+  <div id="status"></div>
+
+<script>
+$(() => {
+  var can = document.getElementById('canvas1');
+  var ctx = can.getContext('2d');
+  ctx.imageSmoothingEnabled= false;
+
+  var timeStart;
+  var xr=0,xg=0,xb=0, remclicks=3;
+  var tmr;
+ 
+
+  const fire = () =>  {
+      if (!tmr) return;
+      clearInterval(tmr); tmr = null;
+      $( "#status" ).html( 'sending data ....' +xr+' '+xg+' '+xb);
+      $.post( "http://challenges.thecatch.cz:10001",{r:xr,g:xg,b:xb}, function( data ) {
+          $( "#status" ).html( data );
+      });
+  }
+  
+  var img = new Image();
+  img.onload = () => {
+     timeStart = new Date();
+     tmr = setInterval(function() {
+         const remtime = 5 - ((new Date()) - timeStart)/1000.0;		   
+         $('#timer').text( remtime);
+         if (remtime <= 0.5) fire();
+     }, 100);
+ 
+     ctx.drawImage(img, 0, 0);
+  }
+
+  //wait a while before loading the image
+  setTimeout(() => { img.src = "http://challenges.thecatch.cz:10001"; }, 500);
+
+
+  //click logic ....
+  $(can).mousedown( (e) => {
+    e.stopPropagation();
+  
+    if (e.which == 3) return fire(); //right click => send data
+  
+    const rect = can.getBoundingClientRect();
+    const mousePos = {x: e.clientX - rect.left, y: e.clientY - rect.top};
+    //get the colors from ROI
+    const colors = Array.from(ctx.getImageData(mousePos.x-50, mousePos.y-50, 100, 100).data).map((val, idx, x) => (idx%4 == 0) ? (x[idx]<<16)|(x[idx+1]<<8)|x[idx+2] : 0).filter(x => x).sort()
+    if (colors.length < 100) return; //not necessary, but it improves accuracy
+    const clr = colors[colors.length >> 1]; //median
+    const r=clr>>16, g=(clr>>8)&255, b=(clr)&255;
+  
+    xr ^= r; xg ^= g; xb ^= b;
+  
+    //draw rect (debug)
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.fillRect(mousePos.x-50, mousePos.y-50, 100,100 );
+  
+    remclicks--;
+
+    if (remclicks == 0) fire(); //three clicks => send data
+    return;
+  });
+
+});
+</script>  
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "helloworld",
+  "main": "index.html",
+  "chromium-args": "--disable-web-security --enable-logging=stderr",
+  "window": {
+    "title": "Captcha - API",
+    "fullscreen": true
+  }
+}
