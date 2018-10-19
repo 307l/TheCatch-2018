@@ -585,7 +585,7 @@ The details for the Catch competition organized by CESNET are available at: http
    **Assignment:** Agent, you have a free day today so you decided to have a coffee and read the last issue of Spy news magazine. On the last page you found a weird crossword puzzle. Perhaps it reveals a flag for you.
    **Attachment:** crossword.png (https://www.thecatch.cz/files/2cf61567e012d42d310f883da1f3c054/crosswords.PNG)
 
-   **Solution:** It is quite easy problem. The crossword consists of 24 cells. The last column must contain dashes. The labels are probably extended regular expression. The first four symbols of the first row are clear - there must be 'C', 'T', '1', '8'. \1 in regular expression means the same content as that in the parentheses. The last symbol in the last row is also clear - it must be 'S'. The symbol above this on must also be 'S'. The first two symbols in the last but one column must be '8' and 'E'. This means that the symbol in the second row before 'E' must be 'K' and so on ....
+   **Solution:** It is quite easy problem. The crossword consists of 24 cells. The last column must contain dashes. The labels are probably extended regular expression. The first four symbols of the first row are clear - there must be 'C', 'T', '1', '8'. \1 in regular expression means the same content as that in the parentheses. The last symbol in the last row is also clear - it must be 'S'. The symbol on the left must also be 'S'. The first two symbols in the last but one column must be '8' and 'E'. This means that the symbol in the second row before 'E' must be 'K' and so on ....
    
    ![Crosswords](/others-7/crosswords.png)
 
