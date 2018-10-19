@@ -347,6 +347,7 @@ The details for the Catch competition organized by CESNET are available at: http
    ```
 
 3. **OS do not forget**
+
    **Assignment:** Agent, thanks to our VEAL Team Six we have secured a device containing enemy intelligence. The device in question was a custom made laptop with military grade system protection. Shortly after securing this device, it self-destructed! Luckily, one of your fellow agents had performed a hardware-assisted memory dump shortly before the device went up in smoke. This means it may hold crucial enemy intelligence. It is paramount we get our hands on that information. Your task is to recover what you can from the memory dump.
    URL: https://owncloud.cesnet.cz/index.php/s/f4JtyxFqUJcWEH5  Password: os_do_not_forget
    Best of luck, Agent.
@@ -357,6 +358,11 @@ The details for the Catch competition organized by CESNET are available at: http
    $ python vol.py -f memory imageinfo
    Volatility Foundation Volatility Framework 2.6
    Determining profile based on KDBG search...
+   INFO    : volatility.debug     : Determining profile based on KDBG search...
+             Suggested Profile(s) : No suggestion (Instantiated with no profile)
+                        AS Layer1 : VirtualBoxCoreDumpElf64 (Unnamed AS)
+                        AS Layer2 : FileAddressSpace (./memory)
+                         PAE type : No PAE
    
    $ python vol.py -f memory vboxinfo
    Volatility Foundation Volatility Framework 2.6
@@ -561,9 +567,9 @@ The details for the Catch competition organized by CESNET are available at: http
    
    ![first two squares](/others-6/firsttwo.png)
    
-   It is clear that there is not a single key. There must be more keys provided that it is a Grille cipher. We tried to find indexes using a brute force approach. We have flag which consists of 24 letters. We have four squares, hence we concluded that we need to find positions for six symbols from each square. First five symbols must be "CT18-". The sixth is unknown. The code is [here](/others-6/bruteforce.py). We found nothing.
+   It is clear that there is not a single key. There must be more keys provided that it is a Grille cipher. We tried to find indexes using a brute force approach. We have flag which consists of 24 letters. We have four squares, hence we concluded that we need to find positions for six symbols from each square. First five symbols must be "CT18-". The sixth is unknown. The code is [here](/others-6/bruteforce.py). We found nothing eventhough we considered even rotations.
    
-   We keep this problem away a little and went out to have some fresh air. We abandoned the idea that there are four squares and tried to do the pattern matching manually which resulted in the following letters:
+   We put this problem away a little and went out to have some fresh air. We abandoned the idea that there are four squares and tried to do the pattern matching manually which resulted in the following letters:
    
    ```
    HBSR-CCR2DC16-6X1FBU-NLWFIPTDHBH-FRLVA7G5SC3T18-V-EA2-CHT-YBY0VZ 7TZE-NAUPOL8LG-P6VO6IDM FU6ZNWFX-LIBTOMHFLAZGSYCXDT-18NF-EWAMCHJ-
