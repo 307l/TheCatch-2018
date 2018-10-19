@@ -1,5 +1,7 @@
 # TheCatch-2018 write-up
 
+The details for the Catch competition organized by CESNET are available at: https://www.thecatch.cz
+
 ## Category: Web
 
 1. **Scandal I.**
